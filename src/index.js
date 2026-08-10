@@ -1,1 +1,2 @@
-export default function('file1','file2'){}
+export default function('file1', 'file2'){
+}
