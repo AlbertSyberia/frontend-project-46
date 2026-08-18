@@ -2,6 +2,7 @@
 import { Command } from 'commander'
 import path from 'path'
 import { readFiles } from '../src/parseFile.js'
+import genDiff from '../src/index.js'
 
 const program = new Command()
 
@@ -17,5 +18,6 @@ program
 
     const content1 = readFiles(path1)
     const content2 = readFiles(path2)
+    console.log(genDiff(content1, content2))
   })
 program.parse()
