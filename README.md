@@ -1,9 +1,9 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/AlbertSyberia/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/AlbertSyberia/frontend-project-46/actions)
 
-#Вычислитель отличий (JS)
+# Вычислитель отличий (JS)
 
-#Описание:
+# Описание:
 
 «Вычислитель отличий» — программа, которая определяет разницу между двумя структурами данных.
 
@@ -12,5 +12,5 @@
 
 Ниже представленны аскинемы с примерами работы программы:
 
-#Gendiff demonstration of JSON files
+# Gendiff demonstration of JSON files
 [![asciicast](https://asciinema.org/a/FNFkmC9bwLr0e4yA.svg)](https://asciinema.org/a/FNFkmC9bwLr0e4yA)
