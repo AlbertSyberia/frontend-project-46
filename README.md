@@ -1,11 +1,12 @@
+# Вычислитель отличий (JS)
+=======
+
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/AlbertSyberia/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/AlbertSyberia/frontend-project-46/actions)
-
 [![GitHub Actions Demo](https://github.com/AlbertSyberia/frontend-project-46/actions/workflows/github-actions-demo.yml/badge.svg?branch=main&event=create)](https://github.com/AlbertSyberia/frontend-project-46/actions/workflows/github-actions-demo.yml)
 
-# Вычислитель отличий (JS)
 
-## Описание:
+# Описание:
 
 «Вычислитель отличий» — программа, которая определяет разницу между двумя структурами данных.
 
