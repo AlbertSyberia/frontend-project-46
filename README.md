@@ -1,6 +1,8 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/AlbertSyberia/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/AlbertSyberia/frontend-project-46/actions)
 
+[![GitHub Actions Demo](https://github.com/AlbertSyberia/frontend-project-46/actions/workflows/github-actions-demo.yml/badge.svg?branch=main&event=create)](https://github.com/AlbertSyberia/frontend-project-46/actions/workflows/github-actions-demo.yml)S
+
 # Вычислитель отличий (JS)
 
 # Описание:
