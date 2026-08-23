@@ -4,5 +4,7 @@ lint: #проверка кода на соответствие стандарт�
 	npx eslint .
 test: #запуск теста
 	npm test
+test-coverage: #запуск тестов с генерацией покрытия
+	npx vitest run --coverage
 link: #установка связей
 	npm link

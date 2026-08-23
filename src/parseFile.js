@@ -2,8 +2,9 @@ import fs from 'fs'
 import path from 'path'
 
 export function readFiles(file) {
-  const dataFile = fs.readFileSync(file, 'utf8')
-  const formatFile = path.extname(file).toLowerCase()
+  const filePath = (path.resolve(process.cwd(), file))
+  const dataFile = fs.readFileSync(filePath, 'utf8')
+  const formatFile = path.extname(filePath).toLowerCase()
   switch (formatFile) {
     case '.json':
       return JSON.parse(dataFile)
