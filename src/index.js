@@ -1,9 +1,9 @@
 import _ from 'lodash'
-import { readFiles } from '../src/parseFile.js'
+import { readFile } from './parsers.js'
 
 export default function (file1, file2) {
-  const content1 = readFiles(file1)
-  const content2 = readFiles(file2)
+  const content1 = readFile(file1)
+  const content2 = readFile(file2)
   const fileKeys1 = Object.keys(content1)
   const fileKeys2 = Object.keys(content2)
   const allKeys = Array.from(new Set([...fileKeys1, ...fileKeys2])).sort()
