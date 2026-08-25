@@ -1,6 +1,6 @@
 import { describe, test, expect } from 'vitest'
 import genDiff from '../src/index.js'
-import { readFiles } from '../src/parsers.js'
+import { readFile } from '../src/parsers.js'
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -14,8 +14,8 @@ describe('parsing test', () => {
     const filePath2 = getFixturePath('file2.json')
     const data1 = fs.readFileSync(filePath1, 'utf-8')
     const data2 = fs.readFileSync(filePath2, 'utf-8')
-    const received1 = readFiles(filePath1)
-    const received2 = readFiles(filePath2)
+    const received1 = readFile(filePath1)
+    const received2 = readFile(filePath2)
 
     expect(JSON.parse(data1)).toEqual(received1)
     expect(JSON.parse(data2)).toEqual(received2)
