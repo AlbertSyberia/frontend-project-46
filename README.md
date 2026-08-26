@@ -16,3 +16,6 @@
 
 # Gendiff demonstration of JSON files
 [![asciicast](https://asciinema.org/a/FNFkmC9bwLr0e4yA.svg)](https://asciinema.org/a/FNFkmC9bwLr0e4yA)
+
+# Gendiff demonstration of yaml files and testing
+[![asciicast](https://asciinema.org/a/ncivPVTkvr3R4S3s.svg)](https://asciinema.org/a/ncivPVTkvr3R4S3s)
