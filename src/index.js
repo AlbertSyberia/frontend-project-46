@@ -1,35 +1,12 @@
-import _ from 'lodash'
-import { readFile } from './parsers.js'
+import { diffStyle } from './formatters/stylish.js'
+import { readFile } from './data/parsers.js'
+import { builder } from './data/buildTree.js'
 
 export default function (file1, file2) {
   const content1 = readFile(file1)
   const content2 = readFile(file2)
-  const fileKeys1 = Object.keys(content1)
-  const fileKeys2 = Object.keys(content2)
-  const allKeys = Array.from(new Set([...fileKeys1, ...fileKeys2])).sort()
 
-  const diffLines = allKeys.flatMap((key) => {
-    const keyIn1 = key in content1
-    const keyIn2 = key in content2
-    const value1 = content1[key]
-    const value2 = content2[key]
+  const tree = builder(content1, content2)
 
-    if (keyIn1 && keyIn2) {
-      if (_.isEqual(value1, value2)) {
-        return `    ${key}: ${value1}`
-      }
-      return [
-        `  - ${key}: ${value1}`,
-        `  + ${key}: ${value2}`,
-      ]
-    }
-    if (!keyIn1 && keyIn2) {
-      return `  + ${key}: ${value2}`
-    }
-    if (keyIn1 && !keyIn2) {
-      return `  - ${key}: ${value1}`
-    }
-  }).join('\n')
-
-  return `{\n${diffLines}\n}`
+  return diffStyle(tree)
 }
