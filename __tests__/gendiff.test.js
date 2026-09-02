@@ -1,6 +1,6 @@
 import { describe, test, expect } from 'vitest'
 import genDiff from '../src/index.js'
-import { readFile } from '../src/parsers.js'
+import { readFile } from '../src/data/parsers.js'
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
