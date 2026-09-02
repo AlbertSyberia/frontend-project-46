@@ -7,6 +7,6 @@ export default function (file1, file2) {
   const content2 = readFile(file2)
 
   const tree = builder(content1, content2)
-
+  // return tree
   return diffStyle(tree)
 }
