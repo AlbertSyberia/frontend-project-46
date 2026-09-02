@@ -8,3 +8,5 @@ test-coverage: #запуск тестов с генерацией покрыти
 	npx vitest run --coverage
 link: #установка связей
 	npm link
+update: #обновление зависимостей
+	npm update
