@@ -10,3 +10,6 @@ link: #установка связей
 	npm link
 update: #обновление зависимостей
 	npm update
+asc: #запись экрана asciinema и отправка на сайт
+	asciinema rec demo.cast
+	asciinema upload demo.cast

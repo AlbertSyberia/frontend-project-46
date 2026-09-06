@@ -19,3 +19,9 @@
 
 # Gendiff demonstration of yaml files and testing
 [![asciicast](https://asciinema.org/a/ncivPVTkvr3R4S3s.svg)](https://asciinema.org/a/ncivPVTkvr3R4S3s)
+
+# Comparing nested files and passing tests
+[![asciicast](https://asciinema.org/a/GEm72mxFtSKYK6tc.svg)](https://asciinema.org/a/GEm72mxFtSKYK6tc)
+
+# Gendiff flat format
+[![asciicast](https://asciinema.org/a/sAc89jvrUeWTihYH.svg)](https://asciinema.org/a/sAc89jvrUeWTihYH)

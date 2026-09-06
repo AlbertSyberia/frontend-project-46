@@ -70,3 +70,23 @@ describe('test YAML', () => {
     expect(diff).toEqual(data)
   })
 })
+
+describe('format check', () => {
+  test('Unknown formatter', () => {
+    const filePath1 = getFixturePath('JSON/jsonNesting1.json')
+    const filePath2 = getFixturePath('JSON/jsonNesting2.json')
+    expect(() => genDiff(filePath1, filePath2, 'text')).toThrow('Unknown formatter: text')
+  })
+  test('choice of format', () => {
+    const filePath1 = getFixturePath('JSON/jsonNesting1.json')
+    const filePath2 = getFixturePath('JSON/jsonNesting2.json')
+    const filePath3 = getFixturePath('YAML/yamlNesting1.yaml')
+    const filePath4 = getFixturePath('YAML/yamlNesting2.yaml')
+    const diffJson = genDiff(filePath1, filePath2, 'plain')
+    const diffYaml = genDiff(filePath3, filePath4, 'plain')
+    const data = fs.readFileSync(getFixturePath('plain.txt'), 'utf-8').trim().replace(/\r\n/g, '\n')
+
+    expect(diffJson).toEqual(data)
+    expect(diffYaml).toEqual(data)
+  })
+})
