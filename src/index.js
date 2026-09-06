@@ -12,6 +12,6 @@ export default function (file1, file2, format = 'stylish') {
     case 'stylish':
       return diffStyle(tree)
     default:
-      return diffStyle(tree)
+      throw new Error(`Unknown formatter: ${format}`)
   }
 }

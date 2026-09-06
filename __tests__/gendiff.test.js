@@ -11,33 +11,42 @@ const getFixturePath = filename => path.join(__dirname, '..', '__fixtures__', fi
 
 describe('parsing test', () => {
   test('read JSON file', () => {
-    const filePath1 = getFixturePath('file1.json')
-    const data = JSON.parse(fs.readFileSync(filePath1, 'utf-8'))
-    const received = readFile(filePath1)
+    const filePath = getFixturePath('JSON/jsonFlat1.json')
+    const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
+    const received = readFile(filePath)
 
     expect(received).toEqual(data)
   })
 
   test('read YAML file', () => {
-    const filePath1 = getFixturePath('filepath1.yaml')
-    const data = fs.readFileSync(filePath1, 'utf-8')
+    const filePath = getFixturePath('YAML/yamlFlat1.yaml')
+    const data = fs.readFileSync(filePath, 'utf-8')
     const expected = load(data)
-    const received = readFile(filePath1)
+    const received = readFile(filePath)
 
     expect(received).toEqual(expected)
   })
+
   test('unknown file format', () => {
-    const filePath = getFixturePath('expected.txt')
+    const filePath = getFixturePath('flat.txt')
     expect(() => readFile(filePath)).toThrow('Unknown format: .txt')
   })
 })
 
 describe('test JSON', () => {
   test('comparisons of flat JSON files', () => {
-    const filePath1 = getFixturePath('file1.json')
-    const filePath2 = getFixturePath('file2.json')
+    const filePath1 = getFixturePath('JSON/jsonFlat1.json')
+    const filePath2 = getFixturePath('JSON/jsonFlat2.json')
     const diff = genDiff(filePath1, filePath2)
-    const data = fs.readFileSync(getFixturePath('expected.txt'), 'utf-8').trim().replace(/\r\n/g, '\n')
+    const data = fs.readFileSync(getFixturePath('flat.txt'), 'utf-8').trim().replace(/\r\n/g, '\n')
+
+    expect(diff).toEqual(data)
+  })
+  test ('nested structure JSON files', () => {
+    const filePath1 = getFixturePath('JSON/jsonNesting1.json')
+    const filePath2 = getFixturePath('JSON/jsonNesting2.json')
+    const diff = genDiff(filePath1, filePath2)
+    const data = fs.readFileSync(getFixturePath('nesting.txt'), 'utf-8').trim().replace(/\r\n/g, '\n')
 
     expect(diff).toEqual(data)
   })
@@ -45,10 +54,18 @@ describe('test JSON', () => {
 
 describe('test YAML', () => {
   test('comparisons of flat YAML files', () => {
-    const path1 = getFixturePath('filepath1.yaml')
-    const path2 = getFixturePath('filepath2.yaml')
+    const path1 = getFixturePath('YAML/yamlFlat1.yaml')
+    const path2 = getFixturePath('YAML/yamlFlat2.yaml')
     const diff = genDiff(path1, path2)
-    const data = fs.readFileSync(getFixturePath('expected.txt'), 'utf-8').trim().replace(/\r\n/g, '\n')
+    const data = fs.readFileSync(getFixturePath('flat.txt'), 'utf-8').trim().replace(/\r\n/g, '\n')
+
+    expect(diff).toEqual(data)
+  })
+  test ('nested structure YAML files', () => {
+    const filePath1 = getFixturePath('YAML/yamlNesting1.yaml')
+    const filePath2 = getFixturePath('YAML/yamlNesting2.yaml')
+    const diff = genDiff(filePath1, filePath2)
+    const data = fs.readFileSync(getFixturePath('nesting.txt'), 'utf-8').trim().replace(/\r\n/g, '\n')
 
     expect(diff).toEqual(data)
   })

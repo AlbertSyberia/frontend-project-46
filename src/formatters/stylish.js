@@ -1,63 +1,112 @@
-function formatValue(value) {
-  if (value === null) return 'null'
-  if (typeof value !== 'object') return String(value)
-  return formatObjectLines(value, 0).join('\n')
-}
-
-function formatObjectLines(obj, depth) {
+function stringifyObject(obj, depth) {
   const indent = '    '.repeat(depth)
-  const keys = Object.keys(obj).sort()
 
-  if (keys.length === 0) return ['{}']
-
-  const innerIndent = indent + '    '
-  const lines = keys.flatMap((key) => {
-    const val = obj[key]
-    if (typeof val === 'object' && val !== null) {
-      const nested = formatObjectLines(val, depth + 1)
-      return [`${innerIndent}${key}: ${nested[0]}`, ...nested.slice(1)]
+  return Object.entries(obj).flatMap(([key, val]) => {
+    if (val === null) {
+      return `${indent}${key}: null`
     }
-    return [`${innerIndent}${key}: ${formatValue(val)}`]
+    if (typeof val === 'object' && !Array.isArray(val)) {
+      return [
+        `${indent}${key}: {`,
+        ...stringifyObject(val, depth + 1),
+        `${indent}}`,
+      ]
+    }
+    return `${indent}${key}: ${val}`
   })
-
-  return ['{', ...lines, `${indent}}`]
 }
 
-function makeLine(sign, key, value, depth) {
-  const prefix = sign === ' '
-    ? '    '.repeat(depth + 1)
-    : '  ' + '    '.repeat(depth) + sign + ' '
+function nesting(children, depth = 0) {
+  const signIndent = '  ' + '    '.repeat(depth)
+  const plainIndent = '    '.repeat(depth + 1)
 
-  if (typeof value === 'object' && value !== null) {
-    const objLines = formatObjectLines(value, depth + 1)
-    return [`${prefix}${key}: ${objLines[0]}`, ...objLines.slice(1)]
-  }
+  return children.flatMap((node) => {
+    const { key, type } = node
 
-  return [`${prefix}${key}: ${formatValue(value)}`]
-}
+    switch (type) {
+      case 'added': {
+        const val = node.value
+        if (val === null) return `${signIndent}+ ${key}: null`
+        if (typeof val === 'object' && !Array.isArray(val)) {
+          return [
+            `${signIndent}+ ${key}: {`,
+            ...stringifyObject(val, depth + 2),
+            `${plainIndent}}`,
+          ]
+        }
+        return `${signIndent}+ ${key}: ${val}`
+      }
 
-function iter(tree, depth = 0) {
-  const indent = '    '.repeat(depth)
+      case 'removed': {
+        const val = node.value
+        if (val === null) return `${signIndent}- ${key}: null`
+        if (typeof val === 'object' && !Array.isArray(val)) {
+          return [
+            `${signIndent}- ${key}: {`,
+            ...stringifyObject(val, depth + 2),
+            `${plainIndent}}`,
+          ]
+        }
+        return `${signIndent}- ${key}: ${val}`
+      }
 
-  return tree.flatMap((node) => {
-    switch (node.type) {
-      case 'added':
-        return makeLine('+', node.key, node.value, depth)
-      case 'removed':
-        return makeLine('-', node.key, node.value, depth)
-      case 'unchanged':
-        return makeLine(' ', node.key, node.value, depth)
-      case 'changed':
+      case 'unchanged': {
+        const val = node.value
+        if (val === null) return `${plainIndent}${key}: null`
+        if (typeof val === 'object' && !Array.isArray(val)) {
+          return [
+            `${plainIndent}${key}: {`,
+            ...stringifyObject(val, depth + 2),
+            `${plainIndent}}`,
+          ]
+        }
+        return `${plainIndent}${key}: ${val}`
+      }
+
+      case 'changed': {
+        const oldVal = node.oldValue
+        const newVal = node.newValue
+        const lines = []
+
+        if (oldVal === null) {
+          lines.push(`${signIndent}- ${key}: null`)
+        }
+        else if (typeof oldVal === 'object' && !Array.isArray(oldVal)) {
+          lines.push(
+            `${signIndent}- ${key}: {`,
+            ...stringifyObject(oldVal, depth + 2),
+            `${plainIndent}}`,
+          )
+        }
+        else {
+          lines.push(`${signIndent}- ${key}: ${oldVal}`)
+        }
+
+        if (newVal === null) {
+          lines.push(`${signIndent}+ ${key}: null`)
+        }
+        else if (typeof newVal === 'object' && !Array.isArray(newVal)) {
+          lines.push(
+            `${signIndent}+ ${key}: {`,
+            ...stringifyObject(newVal, depth + 2),
+            `${plainIndent}}`,
+          )
+        }
+        else {
+          lines.push(`${signIndent}+ ${key}: ${newVal}`)
+        }
+
+        return lines
+      }
+
+      case 'nested': {
         return [
-          ...makeLine('-', node.key, node.oldValue, depth),
-          ...makeLine('+', node.key, node.newValue, depth),
+          `${plainIndent}${key}: {`,
+          ...nesting(node.children, depth + 1),
+          `${plainIndent}}`,
         ]
-      case 'nested':
-        return [
-          `${indent}    ${node.key}: {`,
-          ...iter(node.children, depth + 1),
-          `${indent}    }`,
-        ]
+      }
+
       default:
         return []
     }
@@ -65,5 +114,5 @@ function iter(tree, depth = 0) {
 }
 
 export function diffStyle(tree) {
-  return `{\n${iter(tree, 0).join('\n')}\n}`
+  return ['{', ...nesting(tree, 0), '}'].join('\n')
 }
