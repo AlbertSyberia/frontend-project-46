@@ -25,3 +25,6 @@
 
 # Gendiff flat format
 [![asciicast](https://asciinema.org/a/sAc89jvrUeWTihYH.svg)](https://asciinema.org/a/sAc89jvrUeWTihYH)
+
+#Gendiff json format
+[![asciicast](https://asciinema.org/a/DetfA0FzXRtLyXh6.svg)](https://asciinema.org/a/DetfA0FzXRtLyXh6)
