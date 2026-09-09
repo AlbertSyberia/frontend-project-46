@@ -1,5 +1,5 @@
-import { readFile } from './data/parsers.js'
-import { builder } from './data/buildTree.js'
+import { readFile } from './parsers.js'
+import { builder } from './buildTree.js'
 import { choiceFormat } from './formatters/index.js'
 
 export default function (file1, file2, format) {
