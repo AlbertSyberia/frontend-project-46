@@ -12,6 +12,30 @@
 * Поддержка разных входных форматов: YAML, JSON
 * Генерация отчёта в форматах plain text, stylish и JSON
 
+# Установка
+
+```sh
+$ npm ci
+```
+или
+
+```sh
+$ make install
+```
+# Запуск 
+
+```sh
+$ gendiff ./filepath1.json ./filepath2.json
+```
+где ./filepath1.json и ./filepath2.json пути к файлам которые необходимо сравнить. 
+
+По умолчанию отчет генерируется в формате 'stylish'. Для того чтобы сменить формат отчета необходимо запустить вычислитель с флагом '-f' или '--format' с указанием одного из форматов 'plain', 'stylish' или 'json'.
+
+```sh
+# Пример: 
+$ gendiff -f plain ./filepath1.json ./filepath2.json
+```
+
 Ниже представленны аскинемы с примерами работы программы:
 
 # Gendiff demonstration of JSON files
